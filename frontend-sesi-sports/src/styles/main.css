@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Você pode adicionar estilos CSS globais personalizados aqui,
+ * mas tente usar as classes utilitárias do Tailwind o máximo possível
+ * para manter a consistência e a facilidade de manutenção.
+ */
+body {
+  /* Define a fonte padrão para todo o corpo do documento.
+     'Inter' é um exemplo. Certifique-se de que esta fonte está disponível
+     (ex: via Google Fonts ou instalada localmente) e configurada no tailwind.config.js. */
+  font-family: 'Inter', sans-serif;
+  /* Aplica a cor de texto padrão definida no tailwind.config.js (text-text-dark) */
+  color: #333333;
+}
+
+/* Exemplo: Um estilo para um "container" que centraliza o conteúdo
+   Se você usar este estilo, adicione a classe 'container-custom' em suas views. */
+.container-custom {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container-custom {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Força estilos do Tailwind sobre PrimeVue */
+@layer utilities {
+  .tw-override {
+    all: unset;
+  }
+}
+
+/* FORÇAR TODOS OS ÍCONES pi-image A SEREM CINZAS NO PROJETO TODO */
+.pi.pi-image,
+i.pi.pi-image,
+[class*="pi-image"] {
+  color: #9ca3af !important;
+}
+
+.pi.pi-image::before,
+i.pi.pi-image::before,
+[class*="pi-image"]::before {
+  color: #9ca3af !important;
+}

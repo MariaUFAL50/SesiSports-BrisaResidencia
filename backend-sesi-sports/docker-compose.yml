@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  backend:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgresql://postgres:${POSTGRES_PASSWORD:-12345}@db:5432/postgres?schema=public"
+      JWT_SECRET: "${JWT_SECRET:-sua_chave_secreta_aqui}"
+      GOOGLE_CLIENT_ID: "${GOOGLE_CLIENT_ID}"
+      GOOGLE_CLIENT_SECRET: "${GOOGLE_CLIENT_SECRET}"
+      GOOGLE_CALLBACK_URL: "${GOOGLE_CALLBACK_URL:-http://localhost:8080/auth/google/callback}"
+      MICROSOFT_CLIENT_ID: "${MICROSOFT_CLIENT_ID}"
+      MICROSOFT_CLIENT_SECRET: "${MICROSOFT_CLIENT_SECRET}"
+    ports:
+      - "8080:8080"
+  command: sh -c "npx prisma migrate deploy && npx prisma db seed && npm run start:dev"
+volumes:
+  pgdata:

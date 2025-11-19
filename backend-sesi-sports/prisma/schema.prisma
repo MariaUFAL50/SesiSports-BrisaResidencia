@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TipoUsuario {
+  TECNICO
+  ADMIN
+  CLIENTE
+}
+
+enum UserStatus {
+  ATIVO
+  INATIVO
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  nome        String
+  email       String       @unique
+  tipo    TipoUsuario     @default(CLIENTE)
+  password        String?
+  status      UserStatus   @default(ATIVO)
+  cpfCnpj     String?      @unique
+  phoneNumber String
+  cep         String
+  city        String
+  state       String
+  complement  String?
+  street      String
+  number      Int?
+  fotoUrl         String?
+  outlookId       String?  @unique
+}
+
+enum Status {
+  DISPONIVEL
+  OCUPADO
+  MANUTENCAO
+}
+
+enum SpaceType {
+  QUADRA
+  CAMPO
+  PISCINA
+  ARENA
+  ESTADIO
+  GINASIO
+  SALA
+  OUTRO
+}
+
+enum SportType {
+  POLIESPORTIVO
+  FUTEBOL
+  BASQUETE
+  VOLEI
+  TENIS
+  NATACAO
+  FUTSAL
+  HANDBALL
+  BEACHTENIS
+  OUTRO
+}
+
+enum WeekDay {
+  SEGUNDA
+  TERCA
+  QUARTA
+  QUINTA
+  SEXTA
+  SABADO
+  DOMINGO
+}
+
+model SpacePhoto {
+  id        Int    @id @default(autoincrement())
+  url       String
+  space     Space  @relation(fields: [spaceId], references: [id])
+  spaceId   Int
+}
+
+model Space {
+  id               Int          @id @default(autoincrement())
+  name             String
+  hourPrice        Decimal      @db.Decimal(10,2)
+  spaceType        SpaceType[]
+  sportType        SportType
+  spaceStatus      Status
+  openingHour      String
+  closingHour      String
+  availableDays    WeekDay[]
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  description      String       @db.VarChar(400)
+  photos           SpacePhoto[]
+}
