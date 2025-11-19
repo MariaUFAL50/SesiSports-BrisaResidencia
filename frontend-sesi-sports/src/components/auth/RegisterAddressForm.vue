@@ -64,6 +64,48 @@
     </div>
 
     <div>
+      <label for="city" class="block text-sm font-medium text-text-dark mb-1">Cidade<span class="text-red-500">*</span></label>
+      <InputText
+        id="city"
+        type="text"
+        v-model="v$.city.$model"
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-primary-green focus:border-primary-green transition-all duration-200"
+        :class="{
+          'border-red-500': v$.city.$error,
+          'border-gray-300': !v$.city.$error,
+          'bg-light-gray-bg': true
+        }"
+        @blur="v$.city.$touch"
+        aria-describedby="city-error"
+      />
+      <span v-if="v$.city.$error" id="city-error" class="text-red-500 text-xs mt-1 block">
+        {{ v$.city.$errors[0].$message }}
+      </span>
+    </div>
+
+    <div>
+      <label for="state" class="block text-sm font-medium text-text-dark mb-1">Estado<span class="text-red-500">*</span></label>
+      <InputText
+        id="state"
+        type="text"
+        v-model="v$.state.$model"
+        maxlength="2"
+        placeholder="Ex: AL"
+        class="w-full p-3 border border-gray-300 rounded-md focus:ring-primary-green focus:border-primary-green transition-all duration-200"
+        :class="{
+          'border-red-500': v$.state.$error,
+          'border-gray-300': !v$.state.$error,
+          'bg-light-gray-bg': true
+        }"
+        @blur="v$.state.$touch"
+        aria-describedby="state-error"
+      />
+      <span v-if="v$.state.$error" id="state-error" class="text-red-500 text-xs mt-1 block">
+        {{ v$.state.$errors[0].$message }}
+      </span>
+    </div>
+
+    <div>
       <label for="complement" class="block text-sm font-medium text-text-dark mb-1">Complemento</label>
       <InputText
         id="complement"
@@ -109,6 +151,8 @@ const addressData = reactive({
   cep: authStore.registrationData.cep,
   number: authStore.registrationData.number,
   street: authStore.registrationData.street,
+  city: authStore.registrationData.city || '',
+  state: authStore.registrationData.state || '',
   complement: authStore.registrationData.complement,
 });
 
@@ -122,6 +166,12 @@ const rules = {
   },
   street: {
     required: helpers.withMessage('Rua é obrigatória', required)
+  },
+  city: {
+    required: helpers.withMessage('Cidade é obrigatória', required)
+  },
+  state: {
+    required: helpers.withMessage('Estado é obrigatório', required)
   },
   complement: {}
 };
