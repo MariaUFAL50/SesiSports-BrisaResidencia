@@ -1,0 +1,64 @@
+import { PrismaService } from '../prisma/prisma.service';
+import { UserFilterDto } from './dto/user-filter.dto';
+import { UpdateUserAdminDto } from './dto/update-user-admin.dto';
+export declare class AdminPanelService {
+    private prisma;
+    constructor(prisma: PrismaService);
+    findAllUsers(filterDto: UserFilterDto): Promise<import("../common/pagination").PaginatedResponseDto<{
+        number: number | null;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        nome: string;
+        email: string;
+        tipo: import("@prisma/client").$Enums.TipoUsuario;
+        status: import("@prisma/client").$Enums.UserStatus;
+        cpfCnpj: string | null;
+        phoneNumber: string;
+        cep: string;
+        city: string;
+        state: string;
+        complement: string | null;
+        street: string;
+        fotoUrl: string | null;
+        outlookId: string | null;
+    }>>;
+    findUserById(id: number): Promise<{
+        number: number | null;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        nome: string;
+        email: string;
+        tipo: import("@prisma/client").$Enums.TipoUsuario;
+        status: import("@prisma/client").$Enums.UserStatus;
+        cpfCnpj: string | null;
+        phoneNumber: string;
+        cep: string;
+        city: string;
+        state: string;
+        complement: string | null;
+        street: string;
+        fotoUrl: string | null;
+        outlookId: string | null;
+    }>;
+    updateUser(userId: number, updateDto: UpdateUserAdminDto): Promise<{
+        number: number | null;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        nome: string;
+        email: string;
+        tipo: import("@prisma/client").$Enums.TipoUsuario;
+        status: import("@prisma/client").$Enums.UserStatus;
+        cpfCnpj: string | null;
+        phoneNumber: string;
+        cep: string;
+        city: string;
+        state: string;
+        complement: string | null;
+        street: string;
+        fotoUrl: string | null;
+        outlookId: string | null;
+    }>;
+}

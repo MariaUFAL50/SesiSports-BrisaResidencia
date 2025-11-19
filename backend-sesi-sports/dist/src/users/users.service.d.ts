@@ -1,0 +1,87 @@
+import { PrismaService } from '../prisma/prisma.service';
+import { UpdateProfileDto } from './dto/update-profile.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
+import { PaginationDto } from '../common/pagination';
+export declare class UsersService {
+    private prisma;
+    constructor(prisma: PrismaService);
+    findById(userId: number): Promise<{
+        number: number | null;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        nome: string;
+        email: string;
+        tipo: import("@prisma/client").$Enums.TipoUsuario;
+        status: import("@prisma/client").$Enums.UserStatus;
+        cpfCnpj: string | null;
+        phoneNumber: string;
+        cep: string;
+        city: string;
+        state: string;
+        complement: string | null;
+        street: string;
+        fotoUrl: string | null;
+        outlookId: string | null;
+    }>;
+    findMe(userId: number): Promise<{
+        number: number | null;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        nome: string;
+        email: string;
+        tipo: import("@prisma/client").$Enums.TipoUsuario;
+        status: import("@prisma/client").$Enums.UserStatus;
+        cpfCnpj: string | null;
+        phoneNumber: string;
+        cep: string;
+        city: string;
+        state: string;
+        complement: string | null;
+        street: string;
+        fotoUrl: string | null;
+        outlookId: string | null;
+    }>;
+    updateProfile(userId: number, updateProfileDto: UpdateProfileDto): Promise<{
+        number: number | null;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        nome: string;
+        email: string;
+        tipo: import("@prisma/client").$Enums.TipoUsuario;
+        status: import("@prisma/client").$Enums.UserStatus;
+        cpfCnpj: string | null;
+        phoneNumber: string;
+        cep: string;
+        city: string;
+        state: string;
+        complement: string | null;
+        street: string;
+        fotoUrl: string | null;
+        outlookId: string | null;
+    }>;
+    changePassword(userId: number, changePasswordDto: ChangePasswordDto): Promise<{
+        message: string;
+    }>;
+    findAll(paginationDto: PaginationDto, search?: string): Promise<import("../common/pagination").PaginatedResponseDto<{
+        number: number | null;
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        nome: string;
+        email: string;
+        tipo: import("@prisma/client").$Enums.TipoUsuario;
+        status: import("@prisma/client").$Enums.UserStatus;
+        cpfCnpj: string | null;
+        phoneNumber: string;
+        cep: string;
+        city: string;
+        state: string;
+        complement: string | null;
+        street: string;
+        fotoUrl: string | null;
+        outlookId: string | null;
+    }>>;
+}
